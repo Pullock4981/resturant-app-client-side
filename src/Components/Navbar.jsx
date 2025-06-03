@@ -17,7 +17,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar lg:px-28 text-gray-200 shadow-sm bg-[#312C31]">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -25,13 +25,13 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content text-gray-200 bg-[#312C31] rounded-box z-1 mt-3 w-52 p-2 shadow">
                         {
                             navLinks
                         }
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost font-bold text-xl">ForkFlow</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -42,10 +42,10 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <Link to="/logIn">
-                    <button className='btn'>Login</button>
+                    <button className='px-5 py-2 cursor-pointer rounded-sm mr-3 bg-[#BE7878] text-white border-0'>Login</button>
                 </Link>
                 <Link to="logOut">
-                    <button className='btn'>Log out</button>
+                    <button className='px-5 py-2 cursor-pointer rounded-sm bg-[#BE7878] text-white border-0'>Log out</button>
                 </Link>
             </div>
         </div>
