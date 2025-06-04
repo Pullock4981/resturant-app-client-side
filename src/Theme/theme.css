@@ -1,0 +1,22 @@
+/* theme.css */
+:root {
+  --background: #ffffff;
+  --surface: #f7f7f7;
+  --text: #37324C;
+  --primary: #8A4771;
+  --secondary: #2A9261;
+  --border: #e0e0e0;
+  --input-bg: #ffffff;
+  --link: #2A9261;
+}
+
+[data-theme='dark'] {
+  --background: #1f1f1f;
+  --surface: #2a2a2a;
+  --text: #f1f1f1;
+  --primary: #8A4771;
+  --secondary: #2A9261;
+  --border: #3a3a3a;
+  --input-bg: #2f2f2f;
+  --link: #8A4771;
+}

@@ -9,7 +9,7 @@ const NavBar = () => {
     // nav Links here
     const navLinks = <>
 
-        <div className='flex gap-3 md:flex-row flex-col'>
+        <div className='flex gap-3 md:flex-row flex-col font-semibold'>
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/allFoods">All Foods</NavLink></li>
             <li><NavLink to="/gallery">Gallery</NavLink></li>
@@ -84,18 +84,18 @@ const NavBar = () => {
                             </div>
                             <button
                                 onClick={handleSignOut}
-                                className="btn bg-[#2A9261] text-white font-bold"
+                                className="px-5 py-1 rounded-sm bg-[#E6C8BE] text-black font-semibold"
                             >
                                 Log out
                             </button>
                         </div>
                     ) : (
                         <Link to='/login'>
-                            <button className="btn bg-[#2A9261] text-white font-bold">Log in</button>
+                            <button className="px-5 py-1 rounded-sm bg-[#E6C8BE] text-black font-semibold">Log in</button>
                         </Link>
                     )
                 }
-                <label className="swap swap-rotate">
+                <label className="swap swap-rotate ml-1">
                     {/* this hidden checkbox controls the state */}
                     <input type="checkbox" className="theme-controller" value="synthwave" />
 
