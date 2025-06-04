@@ -4,7 +4,7 @@ import logo from "../assets/Rimberio.png"
 
 const Hero = () => {
     return (
-        <div className='bg-[#3E383E] py-8'>
+        <div className='bg-[#8A4771] py-8'>
             <div className='max-w-7xl mx-auto lg:px-10 flex justify-between items-center lg:flex-row flex-col'>
                 <div className='text-gray-200 text-center w-[100%] lg:w-[33%] lg:text-left'>
                     <p>915 Oakville Cross Rd, Oakville, CA 94562New Window</p>

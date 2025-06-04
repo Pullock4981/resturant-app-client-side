@@ -11,7 +11,7 @@ import MyFoods from "../PrivatePages/MyFoods/MyFoods";
 import AddFood from "../PrivatePages/AddFood/AddFood";
 import MyOrders from "../PrivatePages/MyOrders/MyOrders";
 import Login from "../Pages/Login/Login";
-import LogOut from "../Pages/LogOut/LogOut";
+import Register from "../Pages/Register/Register";
 
 const router = createBrowserRouter([
     {
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
                 Component: Login
             },
             {
-                path: "/logOut",
-                Component: LogOut
+                path: "/register",
+                Component: Register
             },
         ]
     },
