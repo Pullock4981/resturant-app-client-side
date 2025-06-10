@@ -2,6 +2,7 @@
 import React, { use } from 'react';
 import { Link, Navigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext';
+import Swal from 'sweetalert2';
 // import { Link } from 'react-router-dom';
 
 const Register = () => {
@@ -24,6 +25,8 @@ const Register = () => {
             .then((res) => {
                 // Signed up 
                 console.log(res.user)
+                Swal.fire("Success!", "Signed in!", "success");
+                Navigate("/");
                 // ...
             })
             .catch((error) => {
@@ -39,7 +42,7 @@ const Register = () => {
         googleSignIn()
             .then((result) => {
                 console.log(result.user);
-                // Swal.fire("Success!", "Signed in with Google!", "success");
+                Swal.fire("Success!", "Signed in with Google!", "success");
                 Navigate("/");
             })
             .catch((error) => {
