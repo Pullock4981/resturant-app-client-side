@@ -2,55 +2,58 @@
 import React, { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 const Gallery = () => {
     const [open, setOpen] = useState(false);
-    const [photoIndex, setPhotoIndex] = useState(0);
+    // const [photoIndex, setPhotoIndex] = useState(0);
+    // const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
 
     const images = [
-        { src: 'https://i.ibb.co/WvnJ0Vg2/crilled-chicken-bread-piece-greens-pepper-sauce-spices-side-view.jpg' },
-        { src: 'https://i.ibb.co/b5yXtX2W/front-view-served-table-with-cocktails.jpg' },
-        { src: 'https://i.ibb.co/h14TrW4Y/black-plate-chicken-meat-with-vegetables.jpg' },
-        { src: 'https://i.ibb.co/G4Hsjcb7/different-asian-dishes-restaurante.jpg' },
-        { src: 'https://i.ibb.co/7NRskWCy/juicy-chicken-burger-with-fresh-lettuce-crispy-french-fries-wooden-board.jpg' },
-        { src: 'https://i.ibb.co/mCFg4q2z/top-view-delicious-meat-soup-with-greens-potatoes-dark-desk.jpg' },
-        { src: 'https://i.ibb.co/bjNTp2jr/fried-shrimps-served-with-lettuce-sauce.jpg' },
-        { src: 'https://i.ibb.co/xS7cLs1T/side-view-chicken-meatballs-with-greens-ketchup-plate.jpg' },
-        { src: 'https://i.ibb.co/RLdkV4L/beyti-kebab-served-with-ayran-pickles.jpg' },
-        { src: 'https://i.ibb.co/nqY8Jvv7/top-close-up-view-chicken-sauce-lemon-chicken-with-potatoes-seeds-pomegranate-herbs.jpg' },
+        { src: 'https://i.ibb.co/kgMY8x3Y/Screenshot-2025-06-11-011350.png' },
+        { src: 'https://i.ibb.co/V02NFggW/Screenshot-2025-06-11-011334.png' },
+        { src: 'https://i.ibb.co/HDVc4p4P/Screenshot-2025-06-11-011317.png' },
+        { src: 'https://i.ibb.co/fzCzPtts/Screenshot-2025-06-11-011259.png' },
+        { src: 'https://i.ibb.co/S7XWr47Z/Screenshot-2025-06-11-011244.png' },
+        { src: 'https://i.ibb.co/G3ctbFLy/Screenshot-2025-06-11-011230.png' },
+        { src: 'https://i.ibb.co/wZWMzt7X/Screenshot-2025-06-11-011215.png' },
+        { src: 'https://i.ibb.co/KHx4Nqv/Screenshot-2025-06-11-011201.png' },
+        { src: 'https://i.ibb.co/mVvsXn7d/Screenshot-2025-06-11-011144.png' },
+        { src: 'https://i.ibb.co/W4gvd3xK/Screenshot-2025-06-11-011121.png' },
     ];
     return (
-        <div className=" bg-gray-100">
-            {/* Title Section */}
+        <div className="bg-gray-100">
+            {/* Page Title */}
             <div className="bg-[#8A4771] text-white py-16 flex justify-center items-center text-center">
-                <h1 className="text-4xl md:text-6xl font-bold">Food Gallery</h1>
+                <h1 className="text-5xl font-bold">Food Gallery</h1>
             </div>
 
-            {/* Gallery Grid */}
-            <div className="p-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-7xl mx-auto">
-                {images.map((img, idx) => (
+            {/* Image Grid */}
+            <div className="p-6 py-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-7xl mx-auto">
+                {images.map((img, i) => (
                     <div
-                        key={idx}
-                        className="cursor-pointer overflow-hidden rounded-xl shadow hover:scale-105 transition duration-300"
+                        key={i}
                         onClick={() => {
-                            setPhotoIndex(idx);
+                            setIndex(i);
                             setOpen(true);
                         }}
+                        className="cursor-pointer rounded-lg overflow-hidden shadow-lg hover:scale-110 transition-transform duration-100"
                     >
-                        <img src={img.src} alt={`Food ${idx + 1}`} className="w-full h-48 object-cover" />
+                        <img src={img.src} alt={`Food ${i + 1}`} className="w-full h-48 object-cover" />
                     </div>
                 ))}
             </div>
 
-            {/* Lightbox Viewer */}
-            {open && (
-                <Lightbox
-                    open={open}
-                    close={() => setOpen(false)}
-                    index={photoIndex}
-                    slides={images}
-                />
-            )}
+            {/* Lightbox with Thumbnails */}
+            <Lightbox
+                open={open}
+                close={() => setOpen(false)}
+                index={index}
+                slides={images}
+                plugins={[Thumbnails]}
+            />
         </div>
     );
 };
