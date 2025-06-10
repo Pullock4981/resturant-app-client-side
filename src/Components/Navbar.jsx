@@ -1,5 +1,5 @@
 
-import { use } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import './Navbar.css'
@@ -15,6 +15,7 @@ const NavBar = () => {
             <li><NavLink to="/gallery">Gallery</NavLink></li>
             <li><NavLink to="/myFoods">My Foods</NavLink></li>
             <li><NavLink to="/addFoods">Add food</NavLink></li>
+            <li><NavLink to="/updateFood">Update Food</NavLink></li>
             <li><NavLink to="/myOrders">My Orders</NavLink></li>
             <li><NavLink to="/purchaseFood">Purchase Food</NavLink></li>
         </div>
@@ -42,6 +43,21 @@ const NavBar = () => {
                 console.error('Error signing out:', error);
             });
     }
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="navbar lg:px-28 text-gray-200 shadow-sm bg-[#37324C]">
@@ -73,7 +89,7 @@ const NavBar = () => {
             </div>
 
             <div className="navbar-end">
-                {
+                {/* {
                     user ? (
                         <div className="flex items-center gap-3 mr-2">
                             <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
@@ -95,7 +111,67 @@ const NavBar = () => {
                             <button className="px-5 py-1 rounded-sm bg-[#E6C8BE] text-black font-semibold">Log in</button>
                         </Link>
                     )
-                }
+                } */}
+                {user ? (
+                    <div className="relative flex items-center gap-3 mr-2" ref={dropdownRef}>
+                        <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+                            <img
+                                src={user.photoURL}
+                                alt="User Profile"
+                                className="w-10 h-10 rounded-full border-2 border-gray-300 cursor-pointer"
+                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                            />
+                        </div>
+
+                        {isDropdownOpen && (
+                            <div className="absolute right-20 top-14 bg-white text-black shadow-lg rounded-md w-40 z-50">
+                                <ul className="flex flex-col text-sm font-medium">
+                                    <li>
+                                        <Link
+                                            to="/myFoods"
+                                            className="block px-4 py-2 hover:bg-gray-100"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            My Foods
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to="/addFoods"
+                                            className="block px-4 py-2 hover:bg-gray-100"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Add Food
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to="/myOrders"
+                                            className="block px-4 py-2 hover:bg-gray-100"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            My Orders
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+
+                        <button
+                            onClick={handleSignOut}
+                            className="px-5 py-1 rounded-sm bg-[#E6C8BE] text-black font-semibold"
+                        >
+                            Log out
+                        </button>
+                    </div>
+                ) : (
+                    <Link to="/login">
+                        <button className="px-5 py-1 rounded-sm bg-[#E6C8BE] text-black font-semibold">
+                            Log in
+                        </button>
+                    </Link>
+                )}
+
                 <label className="swap swap-rotate ml-1">
                     {/* this hidden checkbox controls the state */}
                     <input type="checkbox" className="theme-controller" value="synthwave" />

@@ -5,7 +5,6 @@ import {
 } from "react-router";
 import RootLayout from "../Layouts/RootLayout";
 import Home from "../Pages/Home/Home";
-import Gallery from "../Pages/Gallery/GAllery";
 import AllFoods from "../Pages/AllFoods/AllFoods";
 import MyFoods from "../PrivatePages/MyFoods/MyFoods";
 import AddFood from "../PrivatePages/AddFood/AddFood";
@@ -13,6 +12,8 @@ import MyOrders from "../PrivatePages/MyOrders/MyOrders";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PurchaseFood from "../PrivatePages/PurchaseFood/PurchaseFood";
+import Gallery from "../Pages/Gallery/Gallery";
+import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path: "/addFoods",
                 Component: AddFood
+            },
+            {
+                path: "/updateFood",
+                Component: UpdateFood
             },
             {
                 path: "/myOrders",
