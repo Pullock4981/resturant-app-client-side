@@ -5,7 +5,7 @@ const AddFood = () => {
     const { user } = useContext(AuthContext);
 
     return (
-        <div className='mx-4 md:mx-32'>
+        <div className='mx-4 md:mx-16'>
             <h1 className='text-2xl md:text-4xl font-bold text-center text-[#37324C] mt-6'>Add New Food Item</h1>
             <form className='my-10'>
                 <div className='grid md:grid-cols-2 gap-4 mb-6'>

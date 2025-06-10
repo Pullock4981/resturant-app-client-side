@@ -12,6 +12,7 @@ import AddFood from "../PrivatePages/AddFood/AddFood";
 import MyOrders from "../PrivatePages/MyOrders/MyOrders";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import PurchaseFood from "../PrivatePages/PurchaseFood/PurchaseFood";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 Component: Register
+            },
+            {
+                path: "/purchaseFood",
+                Component: PurchaseFood
             },
         ]
     },
