@@ -14,6 +14,7 @@ import Register from "../Pages/Register/Register";
 import PurchaseFood from "../PrivatePages/PurchaseFood/PurchaseFood";
 import Gallery from "../Pages/Gallery/Gallery";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
+import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
                 path: "/allFoods",
                 loader: () => fetch('http://localhost:3000/foods'),
                 Component: AllFoods
+            },
+            {
+                path: "/foodDetails/:id",
+                loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
+                Component: FoodDetails
             },
             {
                 path: "/gallery",
