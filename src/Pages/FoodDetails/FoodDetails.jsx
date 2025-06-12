@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router';
+// import { Link, useLoaderData } from 'react-router-dom'; // ✅ Correct package
 
 const FoodDetails = () => {
-    // load data from an API or context provider
     const foodDetails = useLoaderData();
-    // console.log(singleFood)
-    console.log(foodDetails)
+
     return (
-        <div>
+        <div className="mx-4 md:mx-16 my-10">
             <h1 className="text-2xl md:text-4xl font-bold text-center text-[#37324C] mt-6">
                 {foodDetails.foodName}
             </h1>
-            {/* <pre>{JSON.stringify(foodDetails, null, 2)}</pre> */}
-            {/* food details section */}
-            <div className="card bg-base-100 md:px-16 px-4 shadow-xl mt-6">
+
+            <div className="card bg-base-100 shadow-xl mt-6">
                 <figure>
                     <img
                         src={foodDetails.foodImage}
@@ -23,9 +21,9 @@ const FoodDetails = () => {
                 </figure>
 
                 <div className="card-body space-y-2">
-                    <p><strong>Category:</strong> {foodDetails.foodCategory}</p>
+                    <p><strong>Category:</strong> {foodDetails.category || foodDetails.foodCategory}</p>
                     <p><strong>Quantity:</strong> {foodDetails.quantity?.$numberInt || foodDetails.quantity}</p>
-                    <p><strong>Price:</strong> ${foodDetails.price?.$numberInt || foodDetails.price}</p>
+                    <p><strong>Price:</strong> ${foodDetails.price?.$numberDouble || foodDetails.price}</p>
                     <p><strong>Origin:</strong> {foodDetails.foodOrigin}</p>
                     <p><strong>Added By:</strong> {foodDetails.name} ({foodDetails.email})</p>
                     <p><strong>Description:</strong> {foodDetails.description}</p>

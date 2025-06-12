@@ -7,9 +7,10 @@ import Hero from '../Components/Hero';
 const RootLayout = () => {
     return (
         <div>
-            <Hero></Hero>
+            {/* <Hero></Hero> */}
             <Navbar></Navbar>
             <Outlet></Outlet>
+            <Hero></Hero>
             <Footer></Footer>
         </div>
     );

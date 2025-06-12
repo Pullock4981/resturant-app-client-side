@@ -1,63 +1,19 @@
-// // import React, { useContext, useEffect, useState } from 'react';
-// // // import { useLoaderData } from 'react-router';
-// // import { AuthContext } from '../../Contexts/AuthContext';
 
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
-import { Link } from "react-router";
 
 // import { useContext, useEffect, useState } from "react";
 // import { AuthContext } from "../../Contexts/AuthContext";
 // import { Link } from "react-router";
 
-// // const MyFoods = () => {
-// //     // find current user
-// //     const {user} = useContext(AuthContext);
-// //     console.log(user);
-// //     // state for myFoods
-// //     const [myFoods, setMyFoods] = useState([]);
 
-// //     // useEffect to fetch my foods from the api by user email
-// //      useEffect(() => {
-// //         if (user?.email) {
-// //             fetch(`http://localhost:3000/foods?creatorEmail=${user.email}`)
-// //                 .then(res => res.json())
-// //                 .then(data => {
-// //                     setMyFoods(data);
-// //                     // setLoading(false);
-// //                 })
-// //                 .catch(err => {
-// //                     console.error("Failed to load groups", err);
-// //                     // setLoading(false);
-// //                 });
-// //         }
-// //     }, [user]);
-// //     return (
-// //         <div>
-// //             <h1>
-// //                 this is my food page
-// //             </h1>
-
-// //         </div>
-// //     );
-// // };
-
-// // export default MyFoods;
-
-// // import React, { useContext, useEffect, useState } from 'react';
-// // import { AuthContext } from '../../Contexts/AuthContext';
-// // import { Link } from 'react-router-dom';
 
 // const MyFoods = () => {
 //     const { user } = useContext(AuthContext);
 //     const [myFoods, setMyFoods] = useState([]);
 //     const [loading, setLoading] = useState(true);
 
-//     // email
-
 //     useEffect(() => {
 //         if (user?.email) {
-//              fetch(`http://localhost:3000/foods?creatorEmail=${user.email}`)
+//             fetch(`http://localhost:3000/foods?email=${user.email}`)
 //                 .then(res => res.json())
 //                 .then(data => {
 //                     setMyFoods(data);
@@ -106,10 +62,10 @@ import { Link } from "react-router";
 //                                 <tr key={food._id}>
 //                                     <td>{index + 1}</td>
 //                                     <td>{food.foodName}</td>
-//                                     <td>{food.foodCategory}</td>
-//                                     <td>{food.quantity?.$numberInt || food.quantity}</td>
-//                                     <td>${food.price?.$numberInt || food.price}</td>
-//                                     <td>{food.foodOrigin}</td>
+//                                     <td>{food.category}</td> {/* ✅ Corrected key name */}
+//                                     <td>{food.quantity}</td>
+//                                     <td>${food.price}</td>
+//                                     <td>{food.origin}</td>
 //                                     <td>
 //                                         <Link to={`/updateFood/${food._id}`}>
 //                                             <button className="btn btn-sm bg-[#2A9261] text-white">Update</button>
@@ -127,9 +83,9 @@ import { Link } from "react-router";
 
 // export default MyFoods;
 
-// import { useContext, useEffect, useState } from "react";
-// import { AuthContext } from "../../Contexts/AuthContext";
-// import { Link } from "react-router-dom"; // ✅ fix incorrect import
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Link } from "react-router"; // ❗ Use 'react-router-dom' if using React Router DOM
 
 const MyFoods = () => {
     const { user } = useContext(AuthContext);
@@ -138,7 +94,7 @@ const MyFoods = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/foods?creatorEmail=${user.email}`)
+            fetch(`http://localhost:3000/foods?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setMyFoods(data);
@@ -187,10 +143,10 @@ const MyFoods = () => {
                                 <tr key={food._id}>
                                     <td>{index + 1}</td>
                                     <td>{food.foodName}</td>
-                                    <td>{food.category}</td> {/* ✅ Corrected key name */}
+                                    <td>{food.category}</td>
                                     <td>{food.quantity}</td>
                                     <td>${food.price}</td>
-                                    <td>{food.origin}</td>
+                                    <td>{food.foodOrigin}</td>
                                     <td>
                                         <Link to={`/updateFood/${food._id}`}>
                                             <button className="btn btn-sm bg-[#2A9261] text-white">Update</button>
