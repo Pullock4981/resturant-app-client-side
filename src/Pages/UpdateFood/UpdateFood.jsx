@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext';
+import { useLoaderData } from 'react-router';
 
 const UpdateFood = () => {
     const { user } = useContext(AuthContext);
+    const foodItem = useLoaderData();
+    console.log(foodItem);
     return (
         <div>
             <div className='mx-4 md:mx-16'>

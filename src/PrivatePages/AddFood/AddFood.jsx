@@ -15,27 +15,25 @@ const AddFood = () => {
         const form = e.target;
         const foodName = form.foodName.value;
         const foodImage = form.foodImage.value;
-        const category = form.category.value;
+        // const category = form.category.value;
         const quantity = form.quantity.value;
         const price = form.price.value;
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
-        const addedByName = user?.displayName || '';
-        const addedByEmail = user?.email || '';
+        const name = user?.displayName || '';
+        const email = user?.email || '';
 
         // Create a food item object
         const newFoodItem = {
             foodName,
             foodImage,
-            category,
+            // category,
             quantity,
             price,
             foodOrigin,
             description,
-            addedBy: {
-                name: addedByName,
-                email: addedByEmail
-            }
+            name,
+            email
         };
 
         // Send a POST request to add the new food item
@@ -114,12 +112,12 @@ const AddFood = () => {
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label text-base text-[#37324C]">Added By (Name)</label>
-                        <input type="text" name='addedByName' className="input w-full border border-[#8A4771]" value={user?.displayName || ''} readOnly />
+                        <input type="text" name='name' className="input w-full border border-[#8A4771]" value={user?.displayName || ''} readOnly />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label text-base text-[#37324C]">Added By (Email)</label>
-                        <input type="email" name='addedByEmail' className="input w-full border border-[#8A4771]" value={user?.email || ''} readOnly />
+                        <input type="email" name='email' className="input w-full border border-[#8A4771]" value={user?.email || ''} readOnly />
                     </fieldset>
                 </div>
 

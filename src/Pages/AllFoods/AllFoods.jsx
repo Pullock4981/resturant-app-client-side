@@ -6,7 +6,7 @@ const AllFoods = () => {
     const foods = useLoaderData();
     console.log('All Foods:', foods);
     
-    
+
     // state for search input
     const [searchText, setSearchText] = useState('');
 
@@ -45,11 +45,11 @@ const AllFoods = () => {
                             <div className="card-body">
                                 <h2 className="card-title text-lg font-bold">{food.foodName}</h2>
                                 <p>{food.description}</p>
-                                <p><strong>Category:</strong> {food.foodCategory}</p>
+                                {/* <p><strong>Category:</strong> {food.foodCategory}</p> */}
                                 <p><strong>Quantity:</strong> {food.quantity?.$numberInt || food.quantity}</p>
                                 <p><strong>Price:</strong> ${food.price?.$numberInt || food.price}</p>
                                 <p><strong>Origin:</strong> {food.foodOrigin}</p>
-                                <p><strong>Added By:</strong> {food.addedBy?.name} ({food.addedBy?.email})</p>
+                                <p><strong>Added By:</strong> {food.name} ({food.email})</p>
                                 <div className="card-actions justify-end">
                                     <Link to={`/foodDetails/${food._id?.$oid || food._id}`} className="btn btn-primary">View Details</Link>
                                 </div>

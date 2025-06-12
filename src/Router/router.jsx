@@ -31,6 +31,9 @@ const router = createBrowserRouter([
                 Component: AllFoods
             },
             {
+                // path: "/foodDetails/:id",
+                // loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
+                // Component: FoodDetails
                 path: "/foodDetails/:id",
                 loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
                 Component: FoodDetails
@@ -41,14 +44,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/myFoods",
-                Component: MyFoods
+                Component: MyFoods 
             },
             {
                 path: "/addFoods",
                 Component: AddFood
             },
             {
-                path: "/updateFood",
+                path: "/updateFood/:id",
+                loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
                 Component: UpdateFood
             },
             {
