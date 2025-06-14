@@ -27,7 +27,7 @@ const Gallery = () => {
         <div className="bg-gray-100">
             {/* Page Title */}
             <div className="bg-[#8A4771] text-white py-16 flex justify-center items-center text-center">
-                <h1 className="text-5xl font-bold">Food Gallery</h1>
+                <h1 className="md:text-5xl text-3xl font-bold">Food Gallery</h1>
             </div>
 
             {/* Image Grid */}

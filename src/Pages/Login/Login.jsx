@@ -164,20 +164,20 @@ const Login = () => {
         <div className="flex justify-center items-center py-10 bg-[#f7f7f7] px-4">
             <div className="card bg-base-100 w-full max-w-sm shadow-xl">
                 <div className="card-body">
-                    <h1 className="text-3xl font-bold text-center text-[#37324C] mb-6">Login Now</h1>
+                    <h1 className="text-3xl font-bold text-center mb-6">Login Now</h1>
                     <form onSubmit={handleLogin} className="form-control w-full space-y-4">
                         <div>
-                            <label className="label text-[#37324C] font-medium">Email</label>
+                            <label className="label font-medium">Email</label>
                             <input type="email" name="email" required placeholder="Enter your email" className="input border border-[#8A4771] w-full" />
                         </div>
 
                         <div>
-                            <label className="label text-[#37324C] font-medium">Password</label>
+                            <label className="label font-medium">Password</label>
                             <input type="password" name="password" required placeholder="Enter your password" className="input border border-[#8A4771] w-full" />
                         </div>
 
                         <div className="text-right">
-                            <a href="#" className="text-sm text-[#8A4771] hover:underline">Forgot password?</a>
+                            <a href="#" className="text-sm text-red-500 hover:underline">Forgot password?</a>
                         </div>
 
                         <button type="submit" className="btn btn-block bg-white text-[#8A4771] font-bold border border-[#8A4771] hover:bg-[#8A4771] hover:text-white transition duration-200">

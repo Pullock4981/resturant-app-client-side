@@ -56,25 +56,25 @@ const Register = () => {
                 <div className="card  w-full max-w-sm shadow-2xl my-7">
                     <div className="card-body">
                         <form onSubmit={handleRegister} className="form-control w-full">
-                            <h1 className="text-xl md:text-3xl text-[#37324C] text-center mb-3 font-bold">Please Register</h1>
+                            <h1 className="text-xl md:text-3xl text-center mb-3 font-bold">Please Register</h1>
 
-                            <label className="label text-[#37324C]">Name</label>
+                            <label className="label">Name</label>
                             <input type="text" className="input w-full border border-[#8A4771]" name="name" placeholder="Your Name" required />
 
-                            <label className="label mt-1 text-[#37324C] ">Photo URL</label>
+                            <label className="label mt-1">Photo URL</label>
                             <input type="text" className="input w-full border border-[#8A4771]" name="photoURL" placeholder="Photo URL" required />
 
-                            <label className="label mt-1 text-[#37324C]">Email</label>
+                            <label className="label mt-1">Email</label>
                             <input type="email" className="input w-full border border-[#8A4771]" name="email" placeholder="Email" required />
 
-                            <label className="label mt-1 text-[#37324C]">Password</label>
+                            <label className="label mt-1">Password</label>
                             <input type="password" className="input mb-2 w-full border-[#8A4771]" name="password" placeholder="Password" required />
 
                             <button type="submit" className="btn btn-block border hover:border-0 border-[#8A4771] hover:bg-[#8A4771] hover:text-white font-bold mb-2">
                                 Register
                             </button>
 
-                            <p className="text-center text-[#37324C]">
+                            <p className="text-center">
                                 Already have an account?{" "}
                                 <Link to="/login" className="link link-hover underline text-blue-500 font-semibold">
                                     Log in

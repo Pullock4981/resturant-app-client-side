@@ -15,7 +15,7 @@ const AddFood = () => {
         const form = e.target;
         const foodName = form.foodName.value;
         const foodImage = form.foodImage.value;
-        // const category = form.category.value;
+        const category = form.category.value;
         const quantity = form.quantity.value;
         const price = form.price.value;
         const foodOrigin = form.foodOrigin.value;
@@ -27,7 +27,7 @@ const AddFood = () => {
         const newFoodItem = {
             foodName,
             foodImage,
-            // category,
+            category,
             quantity,
             price,
             foodOrigin,
@@ -76,53 +76,53 @@ const AddFood = () => {
 
     return (
         <div className='mx-4 md:mx-16'>
-            <h1 className='text-2xl md:text-4xl font-bold text-center text-[#37324C] mt-6'>Add New Food Item</h1>
+            <h1 className='text-2xl md:text-4xl font-bold text-center mt-6'>Add New Food Item</h1>
             <form className='my-10' onSubmit={handleAddFood}>
                 <div className='grid md:grid-cols-2 gap-4 mb-6'>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Food Name</label>
+                        <label className="label text-base">Food Name</label>
                         <input type="text" name='foodName' className="input w-full border border-[#8A4771]" placeholder="Enter food name" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Food Image</label>
+                        <label className="label text-base">Food Image</label>
                         <input type="text" name='foodImage' className="input w-full border border-[#8A4771]" placeholder="Image URL" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Food Category</label>
+                        <label className="label text-base">Food Category</label>
                         <input type="text" name='category' className="input w-full border border-[#8A4771]" placeholder="e.g., Dessert, Main Course" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Quantity</label>
+                        <label className="label text-base">Quantity</label>
                         <input type="number" name='quantity' className="input w-full border border-[#8A4771]" placeholder="e.g., 5 Plates" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Price ($)</label>
+                        <label className="label text-base">Price ($)</label>
                         <input type="number" name='price' className="input w-full border border-[#8A4771]" placeholder="e.g., 10" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Food Origin (Country)</label>
+                        <label className="label text-base">Food Origin (Country)</label>
                         <input type="text" name='foodOrigin' className="input w-full border border-[#8A4771]" placeholder="e.g., Italy, Japan" required />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Added By (Name)</label>
+                        <label className="label text-base">Added By (Name)</label>
                         <input type="text" name='name' className="input w-full border border-[#8A4771]" value={user?.displayName || ''} readOnly />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label text-base text-[#37324C]">Added By (Email)</label>
+                        <label className="label text-base">Added By (Email)</label>
                         <input type="email" name='email' className="input w-full border border-[#8A4771]" value={user?.email || ''} readOnly />
                     </fieldset>
                 </div>
 
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4 mb-6">
-                    <label className="label text-base text-[#37324C]">Food Description</label>
+                    <label className="label text-base">Food Description</label>
                     <textarea name='description' rows="4" className="textarea w-full border border-[#8A4771]" placeholder="Include ingredients, preparation method, etc." required></textarea>
                 </fieldset>
 

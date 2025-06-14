@@ -1,106 +1,41 @@
-// import React, { useContext } from 'react';
-// import { AuthContext } from '../../Contexts/AuthContext';
-// import { useLoaderData } from 'react-router';
-
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Navigate, useLoaderData, useNavigate,  } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
-// const PurchaseFood = () => {
-//     const { user } = useContext(AuthContext);
-
-//     // food details can be passed as props or fetched from an API
-//     const foodDetails = useLoaderData();
-
-//     const handlePurchase = (e) => {
-//         e.preventDefault();
-//         const form = e.target;
-//         const foodName = form.foodName.value;
-//         const price = form.price.value;
-//         const quantity = form.quantity.value;
-//         const buyerName = user?.displayName || '';
-//         const buyerEmail = user?.email || '';
-//         const buyingDate = Date.now();
-
-//         const purchaseInfo = {
-//             foodName,
-//             price,
-//             quantity,
-//             buyerName,
-//             buyerEmail,
-//             buyingDate
-//         };
-
-//         // TODO: Submit this data to your server/database
-//         console.log('Purchase Info:', purchaseInfo);
-//         form.reset();
-//     };
-
-//     return (
-//         <div className='mx-4 md:mx-16'>
-//             <h1 className='text-2xl md:text-4xl font-bold text-center text-[#37324C] mt-6'>Purchase Food</h1>
-//             <form onSubmit={handlePurchase} className='my-10'>
-//                 <div className='grid md:grid-cols-2 gap-4 mb-6'>
-
-//                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-//                         <label className="label text-base text-[#37324C]">Food Name</label>
-//                         <input type="text" defaultValue={foodDetails?.foodName} name='foodName' className="input w-full border border-[#8A4771]" placeholder="Enter food name" required />
-//                     </fieldset>
-
-//                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-//                         <label className="label text-base text-[#37324C]">Price ($)</label>
-//                         <input type="number" defaultValue={foodDetails?.price} name='price' className="input w-full border border-[#8A4771]" placeholder="Enter price" required />
-//                     </fieldset>
-
-//                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-//                         <label className="label text-base text-[#37324C]">Quantity</label>
-//                         <input type="number" defaultValue={foodDetails?.quantity} name='quantity' className="input w-full border border-[#8A4771]" placeholder="Enter quantity" required />
-//                     </fieldset>
-
-//                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-//                         <label className="label text-base text-[#37324C]">Buyer Name</label>
-//                         <input type="text" name='buyerName' className="input w-full border border-[#8A4771]" value={user?.displayName || ''} readOnly />
-//                     </fieldset>
-
-//                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-//                         <label className="label text-base text-[#37324C]">Buyer Email</label>
-//                         <input type="email" name='buyerEmail' className="input w-full border border-[#8A4771]" value={user?.email || ''} readOnly />
-//                     </fieldset>
-
-//                 </div>
-
-//                 <div className="form-control">
-//                     <input type="submit" className="btn bg-[#8D4974] text-white font-bold w-full" value="Purchase" />
-//                 </div>
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default PurchaseFood;
-
-
-// import React, { useContext } from 'react';
-// import { useLoaderData, useNavigate } from 'react-router-dom';
-// import { AuthContext } from '../../Contexts/AuthContext';
-// import toast from 'react-hot-toast';
 
 const PurchaseFood = () => {
     const { user } = useContext(AuthContext);
     const foodDetails = useLoaderData();
     const navigate = useNavigate();
 
+    const [quantity, setQuantity] = useState(1);
+    const [error, setError] = useState("");
+
+    const isOwnItem = foodDetails.email === user?.email;
+    const isOutOfStock = foodDetails.quantity === 0;
+    const exceedsStock = quantity > foodDetails.quantity;
+
+    const isDisabled = isOwnItem || isOutOfStock || exceedsStock;
+
+    const handleQuantityChange = (e) => {
+        const val = parseInt(e.target.value);
+        if (val > foodDetails.quantity) {
+            setError(`Only ${foodDetails.quantity} items available.`);
+        } else {
+            setError("");
+        }
+        setQuantity(val);
+    };
+
     const handlePurchase = async (e) => {
         e.preventDefault();
+
+        if (isDisabled) return;
 
         const form = e.target;
         const foodName = form.foodName.value;
         const price = parseFloat(form.price.value);
-        const quantity = parseInt(form.quantity.value);
-        const buyerName = user?.displayName || '';
-        const buyerEmail = user?.email || '';
-        const buyingDate = Date.now();
 
         const purchaseInfo = {
             foodId: foodDetails._id,
@@ -108,9 +43,9 @@ const PurchaseFood = () => {
             foodImage: foodDetails.foodImage,
             price,
             quantity,
-            buyerName,
-            buyerEmail,
-            buyingDate,
+            buyerName: user?.displayName || '',
+            buyerEmail: user?.email || '',
+            buyingDate: Date.now(),
             sellerEmail: foodDetails.email,
         };
 
@@ -137,47 +72,65 @@ const PurchaseFood = () => {
 
     return (
         <div className="mx-4 md:mx-16">
-            <h1 className="text-2xl md:text-4xl font-bold text-center text-[#37324C] mt-6">
+            <h1 className="text-2xl md:text-4xl font-bold text-center mt-6">
                 Purchase Food
             </h1>
+
+            {isOwnItem && (
+                <div className="text-red-600 font-semibold mt-4">
+                    ⚠ You cannot purchase your own added food.
+                </div>
+            )}
+            {isOutOfStock && (
+                <div className="text-red-600 font-semibold mt-2">
+                    ❌ This food item is currently out of stock.
+                </div>
+            )}
 
             <form onSubmit={handlePurchase} className="my-10 space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                     <fieldset className="bg-base-200 p-4 border rounded-lg">
-                        <label className="block text-[#37324C] mb-1">Food Name</label>
+                        <label className="block mb-1">Food Name</label>
                         <input
                             type="text"
                             name="foodName"
                             defaultValue={foodDetails.foodName}
                             className="input w-full border border-[#8A4771]"
-                            required
+                            readOnly
                         />
                     </fieldset>
 
                     <fieldset className="bg-base-200 p-4 border rounded-lg">
-                        <label className="block text-[#37324C] mb-1">Price ($)</label>
+                        <label className="block mb-1">Price ($)</label>
                         <input
                             type="number"
                             name="price"
                             defaultValue={foodDetails.price}
                             className="input w-full border border-[#8A4771]"
-                            required
+                            readOnly
                         />
                     </fieldset>
 
                     <fieldset className="bg-base-200 p-4 border rounded-lg">
-                        <label className="block text-[#37324C] mb-1">Quantity</label>
+                        <label className="block mb-1">
+                            Quantity (Available: {foodDetails.quantity})
+                        </label>
                         <input
                             type="number"
                             name="quantity"
-                            defaultValue={foodDetails.quantity}
+                            value={quantity}
+                            min={1}
+                            max={foodDetails.quantity}
+                            onChange={handleQuantityChange}
                             className="input w-full border border-[#8A4771]"
+                            disabled={isOutOfStock || isOwnItem}
                             required
                         />
+                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                     </fieldset>
 
                     <fieldset className="bg-base-200 p-4 border rounded-lg">
-                        <label className="block text-[#37324C] mb-1">Buyer Name</label>
+                        <label className="block mb-1">Buyer Name</label>
                         <input
                             type="text"
                             name="buyerName"
@@ -188,7 +141,7 @@ const PurchaseFood = () => {
                     </fieldset>
 
                     <fieldset className="bg-base-200 p-4 border rounded-lg">
-                        <label className="block text-[#37324C] mb-1">Buyer Email</label>
+                        <label className="block mb-1">Buyer Email</label>
                         <input
                             type="email"
                             name="buyerEmail"
@@ -203,7 +156,11 @@ const PurchaseFood = () => {
                     <input
                         type="submit"
                         value="Purchase"
-                        className="btn bg-[#8D4974] text-white font-bold w-full"
+                        disabled={isDisabled}
+                        className={`btn font-bold w-full ${isDisabled
+                                ? "bg-gray-400 text-white cursor-not-allowed"
+                                : "bg-[#8D4974] text-white"
+                            }`}
                     />
                 </div>
             </form>
