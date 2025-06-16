@@ -20,6 +20,7 @@ const Register = () => {
             email,
             ...rest,
         };
+        console.log(userInfo)
 
         createUser(email, password)
             .then((res) => {

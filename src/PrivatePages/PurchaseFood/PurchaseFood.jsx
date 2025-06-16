@@ -1,8 +1,180 @@
+// import { useContext, useState } from "react";
+// import { AuthContext } from "../../Contexts/AuthContext";
+// import { useLoaderData, useNavigate } from "react-router";
+// import toast from "react-hot-toast";
+
+
+// const PurchaseFood = () => {
+//     const { user } = useContext(AuthContext);
+//     const foodDetails = useLoaderData();
+//     const navigate = useNavigate();
+
+//     const [quantity, setQuantity] = useState(1);
+//     const [error, setError] = useState("");
+
+//     const isOwnItem = foodDetails.email === user?.email;
+//     const isOutOfStock = foodDetails.quantity === 0;
+//     const exceedsStock = quantity > foodDetails.quantity;
+
+//     const isDisabled = isOwnItem || isOutOfStock || exceedsStock;
+
+//     const handleQuantityChange = (e) => {
+//         const val = parseInt(e.target.value);
+//         if (val > foodDetails.quantity) {
+//             setError(`Only ${foodDetails.quantity} items available.`);
+//         } else {
+//             setError("");
+//         }
+//         setQuantity(val);
+//     };
+
+//     const handlePurchase = async (e) => {
+//         e.preventDefault();
+
+//         if (isDisabled) return;
+
+//         const form = e.target;
+//         const foodName = form.foodName.value;
+//         const price = parseFloat(form.price.value);
+
+//         const purchaseInfo = {
+//             foodId: foodDetails._id,
+//             foodName,
+//             foodImage: foodDetails.foodImage,
+//             price,
+//             quantity,
+//             buyerName: user?.displayName || '',
+//             buyerEmail: user?.email || '',
+//             buyingDate: Date.now(),
+//             sellerEmail: foodDetails.email,
+//         };
+
+//         try {
+//             const res = await fetch('http://localhost:3000/orders', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(purchaseInfo),
+//             });
+
+//             if (res.ok) {
+//                 toast.success('Purchase successful!');
+//                 navigate('/myOrders');
+//             } else {
+//                 toast.error('Purchase failed. Please try again.');
+//             }
+//         } catch (err) {
+//             console.error('Error:', err);
+//             toast.error('Something went wrong.');
+//         }
+//     };
+
+//     return (
+//         <div className="mx-4 md:mx-16">
+//             <h1 className="text-2xl md:text-4xl font-bold text-center mt-6">
+//                 Purchase Food
+//             </h1>
+
+//             {isOwnItem && (
+//                 <div className="text-red-600 font-semibold mt-4">
+//                     ⚠ You cannot purchase your own added food.
+//                 </div>
+//             )}
+//             {isOutOfStock && (
+//                 <div className="text-red-600 font-semibold mt-2">
+//                     ❌ This food item is currently out of stock.
+//                 </div>
+//             )}
+
+//             <form onSubmit={handlePurchase} className="my-10 space-y-6">
+//                 <div className="grid md:grid-cols-2 gap-4">
+//                     <fieldset>
+//                         <label className="block mb-1">Food Name</label>
+//                         <input
+//                             type="text"
+//                             name="foodName"
+//                             defaultValue={foodDetails.foodName}
+//                             className="input w-full border border-[#8A4771]"
+//                             readOnly
+//                         />
+//                     </fieldset>
+
+//                     <fieldset>
+//                         <label className="block mb-1">Price ($)</label>
+//                         <input
+//                             type="number"
+//                             name="price"
+//                             defaultValue={foodDetails.price}
+//                             className="input w-full border border-[#8A4771]"
+//                             readOnly
+//                         />
+//                     </fieldset>
+
+//                     <fieldset>
+//                         <label className="block mb-1">
+//                             Quantity (Available: {foodDetails.quantity})
+//                         </label>
+//                         <input
+//                             type="number"
+//                             name="quantity"
+//                             value={quantity}
+//                             min={1}
+//                             max={foodDetails.quantity}
+//                             onChange={handleQuantityChange}
+//                             className="input w-full border border-[#8A4771]"
+//                             disabled={isOutOfStock || isOwnItem}
+//                             required
+//                         />
+//                         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+//                     </fieldset>
+
+//                     <fieldset>
+//                         <label className="block mb-1">Buyer Name</label>
+//                         <input
+//                             type="text"
+//                             name="buyerName"
+//                             value={user?.displayName || ''}
+//                             className="input w-full border border-[#8A4771]"
+//                             readOnly
+//                         />
+//                     </fieldset>
+
+//                     <fieldset>
+//                         <label className="block mb-1">Buyer Email</label>
+//                         <input
+//                             type="email"
+//                             name="buyerEmail"
+//                             value={user?.email || ''}
+//                             className="input w-full border border-[#8A4771]"
+//                             readOnly
+//                         />
+//                     </fieldset>
+//                 </div>
+
+//                 <div className="form-control">
+//                     <input
+//                         type="submit"
+//                         value="Purchase"
+//                         disabled={isDisabled}
+//                         className={`btn font-bold w-full ${isDisabled
+//                                 ? "bg-gray-400 text-white cursor-not-allowed"
+//                                 : "bg-[#8D4974] text-white"
+//                             }`}
+//                     />
+//                 </div>
+//             </form>
+//         </div>
+//     );
+// };
+
+// export default PurchaseFood;
+
+
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useLoaderData, useNavigate } from "react-router";
 import toast from "react-hot-toast";
-
 
 const PurchaseFood = () => {
     const { user } = useContext(AuthContext);
@@ -11,26 +183,28 @@ const PurchaseFood = () => {
 
     const [quantity, setQuantity] = useState(1);
     const [error, setError] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const isOwnItem = foodDetails.email === user?.email;
     const isOutOfStock = foodDetails.quantity === 0;
     const exceedsStock = quantity > foodDetails.quantity;
-
-    const isDisabled = isOwnItem || isOutOfStock || exceedsStock;
+    const isDisabled = isOwnItem || isOutOfStock || exceedsStock || isSubmitting;
 
     const handleQuantityChange = (e) => {
-        const val = parseInt(e.target.value);
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) val = 1;
+
         if (val > foodDetails.quantity) {
             setError(`Only ${foodDetails.quantity} items available.`);
         } else {
             setError("");
         }
+
         setQuantity(val);
     };
 
     const handlePurchase = async (e) => {
         e.preventDefault();
-
         if (isDisabled) return;
 
         const form = e.target;
@@ -50,6 +224,7 @@ const PurchaseFood = () => {
         };
 
         try {
+            setIsSubmitting(true);
             const res = await fetch('http://localhost:3000/orders', {
                 method: 'POST',
                 headers: {
@@ -58,15 +233,19 @@ const PurchaseFood = () => {
                 body: JSON.stringify(purchaseInfo),
             });
 
+            const data = await res.json();
+
             if (res.ok) {
                 toast.success('Purchase successful!');
                 navigate('/myOrders');
             } else {
-                toast.error('Purchase failed. Please try again.');
+                toast.error(data.message || 'Purchase failed. Please try again.');
             }
         } catch (err) {
             console.error('Error:', err);
             toast.error('Something went wrong.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -77,19 +256,20 @@ const PurchaseFood = () => {
             </h1>
 
             {isOwnItem && (
-                <div className="text-red-600 font-semibold mt-4">
+                <p className="text-red-600 font-semibold mt-4">
                     ⚠ You cannot purchase your own added food.
-                </div>
+                </p>
             )}
+
             {isOutOfStock && (
-                <div className="text-red-600 font-semibold mt-2">
+                <p className="text-red-600 font-semibold mt-2">
                     ❌ This food item is currently out of stock.
-                </div>
+                </p>
             )}
 
             <form onSubmit={handlePurchase} className="my-10 space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
-                    <fieldset className="bg-base-200 p-4 border rounded-lg">
+                    <fieldset>
                         <label className="block mb-1">Food Name</label>
                         <input
                             type="text"
@@ -100,7 +280,7 @@ const PurchaseFood = () => {
                         />
                     </fieldset>
 
-                    <fieldset className="bg-base-200 p-4 border rounded-lg">
+                    <fieldset>
                         <label className="block mb-1">Price ($)</label>
                         <input
                             type="number"
@@ -111,7 +291,7 @@ const PurchaseFood = () => {
                         />
                     </fieldset>
 
-                    <fieldset className="bg-base-200 p-4 border rounded-lg">
+                    <fieldset>
                         <label className="block mb-1">
                             Quantity (Available: {foodDetails.quantity})
                         </label>
@@ -129,7 +309,7 @@ const PurchaseFood = () => {
                         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                     </fieldset>
 
-                    <fieldset className="bg-base-200 p-4 border rounded-lg">
+                    <fieldset>
                         <label className="block mb-1">Buyer Name</label>
                         <input
                             type="text"
@@ -140,7 +320,7 @@ const PurchaseFood = () => {
                         />
                     </fieldset>
 
-                    <fieldset className="bg-base-200 p-4 border rounded-lg">
+                    <fieldset>
                         <label className="block mb-1">Buyer Email</label>
                         <input
                             type="email"
@@ -155,11 +335,11 @@ const PurchaseFood = () => {
                 <div className="form-control">
                     <input
                         type="submit"
-                        value="Purchase"
+                        value={isSubmitting ? "Processing..." : "Purchase"}
                         disabled={isDisabled}
                         className={`btn font-bold w-full ${isDisabled
-                                ? "bg-gray-400 text-white cursor-not-allowed"
-                                : "bg-[#8D4974] text-white"
+                            ? "bg-gray-400 text-white cursor-not-allowed"
+                            : "bg-[#8D4974] text-white"
                             }`}
                     />
                 </div>

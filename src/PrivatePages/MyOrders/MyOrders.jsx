@@ -8,14 +8,46 @@ const MyOrders = () => {
     const [orders, setOrders] = useState([]);
 
     // Fetch orders for logged-in user
+    // useEffect(() => {
+    //     if (user?.email) {
+    //         fetch(`http://localhost:3000/orders?email=${user.email}`), {
+    //             headers: {
+    //                 authorization: `Bearer ${user?.accessToken}`
+    //             }
+    //         }
+    //             .then(res => res.json())
+    //             .then(data => setOrders(data))
+    //             .catch(err => console.error('Failed to fetch orders:', err));
+    //     }
+    // }, [user?.email, user?.accessToken]);
+
     useEffect(() => {
-        if (user?.email) {
-            fetch(`http://localhost:3000/orders?email=${user.email}`)
-                .then(res => res.json())
-                .then(data => setOrders(data))
-                .catch(err => console.error('Failed to fetch orders:', err));
-        }
-    }, [user?.email]);
+        const fetchOrders = async () => {
+            if (!user?.email) return;
+
+            try {
+                const token = await user.getIdToken(); // Get Firebase ID token
+                const res = await fetch(`http://localhost:3000/orders?email=${user.email}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (!res.ok) {
+                    throw new Error("Unauthorized or error fetching orders");
+                }
+
+                const data = await res.json();
+                setOrders(data);
+            } catch (err) {
+                console.error("Failed to fetch orders:", err);
+                toast.error("Could not fetch your orders");
+            }
+        };
+
+        fetchOrders();
+    }, [user]);
+
 
     // Handle delete order
     const handleDelete = (id) => {
@@ -53,12 +85,12 @@ const MyOrders = () => {
                                 <h2 className="text-xl font-semibold">{order.foodName}</h2>
                                 <p><strong>Price:</strong> ${order.price}</p>
                                 <p><strong>Quantity:</strong> {order.quantity}</p>
-                                <p><strong>Owner:</strong> {order.ownerName || 'Unknown'}</p>
+                                {/* <p><strong>Owner:</strong> {order.ownerName || 'Unknown'}</p> */}
                                 <p><strong>Ordered At:</strong> {moment(order.buyingDate).format('LLL')}</p>
                             </div>
                             <button
                                 onClick={() => handleDelete(order._id)}
-                                className="mt-4 btn btn-sm bg-red-600 text-white hover:bg-red-700"
+                                className="mt-4 btn btn-sm bg-red-400 text-white hover:bg-red-700"
                             >
                                 Delete Order
                             </button>

@@ -24,7 +24,7 @@ const Gallery = () => {
         { src: 'https://i.ibb.co/W4gvd3xK/Screenshot-2025-06-11-011121.png' },
     ];
     return (
-        <div className="bg-gray-100">
+        <div>
             {/* Page Title */}
             <div className="bg-[#8A4771] text-white py-16 flex justify-center items-center text-center">
                 <h1 className="md:text-5xl text-3xl font-bold">Food Gallery</h1>

@@ -101,7 +101,7 @@ const FoodDetails = () => {
                         {isPurchasable ? (
                             <Link
                                 to={`/purchaseFood/${foodDetails._id?.$oid || foodDetails._id}`}
-                                className="btn bg-[#8A4771] text-white hover:bg-[#6c375c]"
+                                className="btn btn-large bg-[#8A4771] text-white hover:bg-[#6c375c]"
                             >
                                 Purchase
                             </Link>

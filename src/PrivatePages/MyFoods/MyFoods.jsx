@@ -2,38 +2,40 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Link } from "react-router"; // ❗ Use 'react-router-dom' if using React Router DOM
+import { Link } from "react-router";
 
 const MyFoods = () => {
     const { user } = useContext(AuthContext);
     const [myFoods, setMyFoods] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // user token find
+    console.log("token:", user?.accessToken);
+
     useEffect(() => {
-        if (user?.email) {
-            fetch(`http://localhost:3000/foods?email=${user.email}`)
-                .then(res => res.json())
-                .then(data => {
-                    setMyFoods(data);
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error("Failed to load foods", err);
-                    setLoading(false);
-                });
-        }
+        if (!user?.email) return;
+
+        console.log("Fetching foods for:", user.email);
+        console.log("User token:", user?.accessToken);
+
+        fetch(`http://localhost:3000/foodsEmail/?email=${user.email}`, {
+            headers: {
+                authorization: `Bearer ${user?.accessToken}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setMyFoods(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load foods", err);
+                setLoading(false);
+            });
     }, [user]);
 
     if (loading) {
-        return (
-            <div className="text-center mt-10">
-                <span className="loading loading-ball loading-xs"></span>
-                <span className="loading loading-ball loading-sm"></span>
-                <span className="loading loading-ball loading-md"></span>
-                <span className="loading loading-ball loading-lg"></span>
-                <span className="loading loading-ball loading-xl"></span>
-            </div>
-        );
+        return <div className="text-center mt-10">Loading...</div>;
     }
 
     return (
@@ -44,7 +46,7 @@ const MyFoods = () => {
             ) : (
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        <thead className="border-2">
+                        <thead className="border">
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
@@ -66,7 +68,7 @@ const MyFoods = () => {
                                     <td>{food.foodOrigin}</td>
                                     <td>
                                         <Link to={`/updateFood/${food._id}`}>
-                                            <button className="btn btn-sm bg-[#2A9261] text-white">Update</button>
+                                            <button className="btn btn-sm bg-blue-600 text-white">Update</button>
                                         </Link>
                                     </td>
                                 </tr>
