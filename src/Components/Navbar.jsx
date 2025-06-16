@@ -4,6 +4,7 @@ import { AuthContext } from "../Contexts/AuthContext";
 import Swal from "sweetalert2";
 import { Link, NavLink } from "react-router";
 import './Navbar.css';
+import logo from '../assets/Rimberio.png';
 
 const NavBar = () => {
     const { user, SignOutUser } = useContext(AuthContext);
@@ -60,9 +61,9 @@ const NavBar = () => {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/allFoods">All Foods</NavLink></li>
             <li><NavLink to="/gallery">Gallery</NavLink></li>
-            <li><NavLink to="/myFoods">My Foods</NavLink></li>
-            <li><NavLink to="/addFoods">Add Food</NavLink></li>
-            <li><NavLink to="/myOrders">My Orders</NavLink></li>
+            {/* <li><NavLink to="/myFoods">My Foods</NavLink></li> */}
+            {/* <li><NavLink to="/addFoods">Add Food</NavLink></li> */}
+            {/* <li><NavLink to="/myOrders">My Orders</NavLink></li> */}
         </div>
     );
 
@@ -82,7 +83,10 @@ const NavBar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="font-bold text-xl hidden md:block">ForkFlow</a>
+                <div className="flex items-center gap-2">
+                    <img className="w-10 rounded-full" src={logo} alt="" />
+                    <a className="font-bold text-xl hidden md:block">ForkFlow</a>
+                </div>
             </div>
 
             {/* Center (Nav links) */}
@@ -98,7 +102,7 @@ const NavBar = () => {
                             <img
                                 src={user.photoURL}
                                 alt="User"
-                                className="w-10 h-10 rounded-full border cursor-pointer"
+                                className="w-8 h-8 rounded-full border cursor-pointer"
                                 onClick={() => setIsDropdownOpen((prev) => !prev)}
                             />
                         </div>
@@ -115,13 +119,13 @@ const NavBar = () => {
 
                         <button
                             onClick={handleSignOut}
-                            className="md:px-5 px-2 py-2 cursor-pointer rounded bg-[#AA5A8C] text-white font-semibold">
+                            className="md:px-4 px-2 md:py-2 py-1 cursor-pointer rounded bg-[#AA5A8C] text-white font-semibold">
                             Log out
                         </button>
                     </div>
                 ) : (
                     <Link to="/login">
-                        <button className="md:px-5 px-2 py-2 cursor-pointer rounded bg-[#AA5A8C] text-white font-semibold">
+                        <button className="md:px-4 px-2 md:py-2 py-1 cursor-pointer rounded bg-[#AA5A8C] text-white font-semibold">
                             Log in
                         </button>
                     </Link>
@@ -129,7 +133,7 @@ const NavBar = () => {
 
                 {/* 🌙 Theme toggle */}
 
-                <label className="swap swap-rotate ml-3 p-2 rounded-full bg-primary text-white hover:bg-primary-focus cursor-pointer transition duration-200">
+                <label className="swap swap-rotate ml-3 md:p-2 p-1 rounded-full bg-primary text-white hover:bg-primary-focus cursor-pointer transition duration-200">
                     <input
                         type="checkbox"
                         onChange={toggleTheme}

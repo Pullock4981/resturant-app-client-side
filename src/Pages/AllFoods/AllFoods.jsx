@@ -85,13 +85,14 @@ const AllFoods = () => {
 
     return (
         <div>
-            <div className="bg-[#8A4771] text-white py-16 flex justify-center items-center text-center">
-                <h1 className="md:text-5xl text-3xl font-bold">Find All The Foods</h1>
+            {/* Title Section */}
+            <div className="bg-[#37324C] text-white py-10 flex justify-center items-center text-center">
+                <h1 className="md:text-4xl text-2xl font-bold">All Foods</h1>
             </div>
 
             {/* Search Bar */}
             <div className="mx-4 md:mx-16 my-10">
-                <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">All Foods</h1>
+                {/* <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">All Foods</h1> */}
                 <div className="form-control mb-6 flex justify-center">
                     <input
                         type="text"

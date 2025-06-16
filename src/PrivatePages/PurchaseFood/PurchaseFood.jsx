@@ -50,7 +50,7 @@
 //         };
 
 //         try {
-//             const res = await fetch('http://localhost:3000/orders', {
+//             const res = await fetch('https://resturent-management-system-server.vercel.app/orders', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ const PurchaseFood = () => {
 
         try {
             setIsSubmitting(true);
-            const res = await fetch('http://localhost:3000/orders', {
+            const res = await fetch('https://resturent-management-system-server.vercel.app/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

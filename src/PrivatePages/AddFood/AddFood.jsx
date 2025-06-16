@@ -39,7 +39,7 @@ const AddFood = () => {
     //     // jwt token in useEffect
 
     //     // Send a POST request to add the new food item
-    //     fetch('http://localhost:3000/foods', {
+    //     fetch('https://resturent-management-system-server.vercel.app/foods', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ const AddFood = () => {
             // ✅ Get Firebase ID token from user
             const token = await user.getIdToken();
 
-            const response = await fetch('http://localhost:3000/foods', {
+            const response = await fetch('https://resturent-management-system-server.vercel.app/foods', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

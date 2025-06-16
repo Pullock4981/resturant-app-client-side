@@ -15,6 +15,7 @@ import PurchaseFood from "../PrivatePages/PurchaseFood/PurchaseFood";
 import Gallery from "../Pages/Gallery/Gallery";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -27,12 +28,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/allFoods",
-                loader: () => fetch('http://localhost:3000/foods'),
+                loader: () => fetch('https://resturent-management-system-server.vercel.app/foods'),
                 Component: AllFoods
             },
             {
                 path: "/foodDetails/:id",
-                loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
+                loader: ({ params }) => fetch(`https://resturent-management-system-server.vercel.app/foods/${params.id}`),
                 Component: FoodDetails
             },
             {
@@ -41,21 +42,24 @@ const router = createBrowserRouter([
             },
             {
                 path: "/myFoods",
-                Component: MyFoods 
+                // Component: MyFoods
+                element: <PrivateRoute><MyFoods></MyFoods></PrivateRoute>
             },
             {
                 path: "/addFoods",
-                Component: AddFood
+                // Component: AddFood
+                element: <PrivateRoute><AddFood></AddFood></PrivateRoute>
             },
             {
                 path: "/updateFood/:id",
-                loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
+                loader: ({ params }) => fetch(`https://resturent-management-system-server.vercel.app/foods/${params.id}`),
                 Component: UpdateFood
             },
             {
                 path: "/myOrders",
-                loader: ({ params }) => fetch(`http://localhost:3000/orders/${params.id}`),
-                Component: MyOrders
+                loader: ({ params }) => fetch(`https://resturent-management-system-server.vercel.app/orders/${params.id}`),
+                // Component: MyOrders
+                element: <PrivateRoute><MyOrders></MyOrders></PrivateRoute>
             },
             {
                 path: "/logIn",
@@ -67,8 +71,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "/purchaseFood/:id",
-                loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`),
-                Component: PurchaseFood
+                loader: ({ params }) => fetch(`https://resturent-management-system-server.vercel.app/foods/${params.id}`),
+                // Component: PurchaseFood
+                element: <PrivateRoute><PurchaseFood></PurchaseFood></PrivateRoute>
             },
         ]
     },

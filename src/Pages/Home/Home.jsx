@@ -7,7 +7,7 @@ const Home = () => {
     const [topFoods, setTopFoods] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/foods')
+        fetch('https://resturent-management-system-server.vercel.app/foods')
             .then(res => res.json())
             .then(data => {
                 const sorted = data

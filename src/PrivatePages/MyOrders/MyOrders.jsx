@@ -10,7 +10,7 @@ const MyOrders = () => {
     // Fetch orders for logged-in user
     // useEffect(() => {
     //     if (user?.email) {
-    //         fetch(`http://localhost:3000/orders?email=${user.email}`), {
+    //         fetch(`https://resturent-management-system-server.vercel.app/orders?email=${user.email}`), {
     //             headers: {
     //                 authorization: `Bearer ${user?.accessToken}`
     //             }
@@ -27,7 +27,7 @@ const MyOrders = () => {
 
             try {
                 const token = await user.getIdToken(); // Get Firebase ID token
-                const res = await fetch(`http://localhost:3000/orders?email=${user.email}`, {
+                const res = await fetch(`https://resturent-management-system-server.vercel.app/orders?email=${user.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -54,7 +54,7 @@ const MyOrders = () => {
         const confirm = window.confirm("Are you sure you want to delete this order?");
         if (!confirm) return;
 
-        fetch(`http://localhost:3000/orders/${id}`, {
+        fetch(`https://resturent-management-system-server.vercel.app/orders/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

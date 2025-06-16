@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 
 const UpdateFood = () => {
     const { user } = useContext(AuthContext);
     const foodItem = useLoaderData();
     console.log(foodItem);
+    const navigate = useNavigate();
 
     // function for update food item
     // const handleUpdateFood = (e) => {
@@ -34,7 +35,7 @@ const UpdateFood = () => {
     //     };
 
     //     // Send a PUT request to update the food item
-    //     fetch(`http://localhost:3000/foods/${foodItem._id}`, {
+    //     fetch(`https://resturent-management-system-server.vercel.app/foods/${foodItem._id}`, {
     //         method: 'PUT',
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -95,7 +96,7 @@ const UpdateFood = () => {
             // Get Firebase token
             const token = await user.getIdToken();
 
-            const response = await fetch(`http://localhost:3000/foods/${foodItem._id}`, {
+            const response = await fetch(`https://resturent-management-system-server.vercel.app/foods/${foodItem._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ const UpdateFood = () => {
                     timer: 1500
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.reload(); // or navigate if using router
+                        navigate('/myFoods'); 
                     }
                 });
             } else {
