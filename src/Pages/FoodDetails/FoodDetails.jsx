@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Link, useLoaderData } from "react-router";
+// import { purchaseProduct } from "../../service/purchaseFood";
 
 // const FoodDetails = () => {
 //     const foodDetails = useLoaderData();
@@ -100,6 +101,7 @@ const FoodDetails = () => {
                     <div className="card-actions justify-end mt-4">
                         {isPurchasable ? (
                             <Link
+                                
                                 to={`/purchaseFood/${foodDetails._id?.$oid || foodDetails._id}`}
                                 className="btn btn-large bg-[#8A4771] text-white hover:bg-[#6c375c]"
                             >

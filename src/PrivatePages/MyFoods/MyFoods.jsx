@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Link } from "react-router";
+// import { div } from "framer-motion/client";
 
 const MyFoods = () => {
     const { user } = useContext(AuthContext);
@@ -35,7 +36,15 @@ const MyFoods = () => {
     }, [user]);
 
     if (loading) {
-        return <div className="text-center mt-10">Loading...</div>;
+        return (
+            <div>
+                <span className="loading loading-bars loading-xs"></span>
+                <span className="loading loading-bars loading-sm"></span>
+                <span className="loading loading-bars loading-md"></span>
+                <span className="loading loading-bars loading-lg"></span>
+                <span className="loading loading-bars loading-xl"></span>
+            </div>
+        );
     }
 
     return (
@@ -63,7 +72,7 @@ const MyFoods = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {myFoods.map((food, index) => (
+                                {myFoods?.map((food, index) => (
                                     <tr key={food._id}>
                                         <td>{index + 1}</td>
                                         <td>{food.foodName}</td>

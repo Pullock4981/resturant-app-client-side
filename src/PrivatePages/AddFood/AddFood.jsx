@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
@@ -10,79 +11,16 @@ const AddFood = () => {
     const navigate = useNavigate();
 
     // add functionality to handle form submission and store it in the database
-    // const handleAddFood = (e) => {
-    //     e.preventDefault();
-    //     const form = e.target;
-    //     const foodName = form.foodName.value;
-    //     const foodImage = form.foodImage.value;
-    //     const category = form.category.value;
-    //     const quantity = form.quantity.value;
-    //     const price = form.price.value;
-    //     const foodOrigin = form.foodOrigin.value;
-    //     const description = form.description.value;
-    //     const name = user?.displayName || '';
-    //     const email = user?.email || '';
-
-    //     // Create a food item object
-    //     const newFoodItem = {
-    //         foodName,
-    //         foodImage,
-    //         category,
-    //         quantity,
-    //         price,
-    //         foodOrigin,
-    //         description,
-    //         name,
-    //         email
-    //     };
-
-    //     // jwt token in useEffect
-
-    //     // Send a POST request to add the new food item
-    //     fetch('https://resturent-management-system-server.vercel.app/foods', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(newFoodItem)
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log('Food item added:', data);
-    //             // show success alert
-    //             Swal.fire({
-    //                 title: 'Success!',
-    //                 text: 'Food item added successfully.',
-    //                 icon: 'success',
-    //                 confirmButtonColor: '#8D4974',
-    //                 confirmButtonText: 'Go to My added foods!!!',
-    //                 timer: 1500
-    //             }).then((result) => {
-    //                 if (result.isConfirmed) {
-    //                     navigate('/myOrders'); // redirect to My food page
-    //                 }
-    //             });
-    //         })
-    //         .catch(error => {
-    //             console.error('Error adding food item:', error);
-    //             // show error alert
-    //             Swal.fire({
-    //                 title: 'Error!',
-    //                 text: 'Failed to add food item.',
-    //                 icon: 'error',
-    //                 confirmButtonColor: '#8D4974',
-    //                 // timer: 1500
-    //             });
-    //         });
-    // };
     const handleAddFood = async (e) => {
         e.preventDefault();
         const form = e.target;
         const foodName = form.foodName.value;
         const foodImage = form.foodImage.value;
         const category = form.category.value;
-        const quantity = form.quantity.value;
-        const price = form.price.value;
+        // const quantity = form.quantity.value;
+        // const price = form.price.value;
+        const quantity = parseInt(form.quantity.value); // 👈 convert to number
+        const price = parseFloat(form.price.value);
         const foodOrigin = form.foodOrigin.value;
         const description = form.description.value;
         const name = user?.displayName || '';
@@ -122,10 +60,10 @@ const AddFood = () => {
                     icon: 'success',
                     confirmButtonColor: '#8D4974',
                     confirmButtonText: 'Go to My added foods!!!',
-                    timer: 1500
+                    // timer: 1500
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/allFoods');
+                        navigate('/myFoods');
                     }
                 });
             } else {

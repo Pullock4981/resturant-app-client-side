@@ -3,12 +3,13 @@ import React, { use } from 'react';
 import { Link, Navigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext';
 import Swal from 'sweetalert2';
+import { addUser } from '../../service/addUser';
 // import { Link } from 'react-router-dom';
 
 const Register = () => {
     // user info
-    const { createUser,googleSignIn } = use(AuthContext)
-    const handleRegister = (e) => {
+    const { createUser, googleSignIn } = use(AuthContext)
+    const handleRegister = async (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -22,11 +23,12 @@ const Register = () => {
         };
         console.log(userInfo)
 
-        createUser(email, password)
+        await createUser(email, password)
             .then((res) => {
                 // Signed up 
                 console.log(res.user)
                 Swal.fire("Success!", "Signed in!", "success");
+                addUser("https://resturent-management-system-server.vercel.app/users", { email })
                 Navigate("/");
                 // ...
             })
@@ -44,6 +46,7 @@ const Register = () => {
             .then((result) => {
                 console.log(result.user);
                 Swal.fire("Success!", "Signed in with Google!", "success");
+                addUser("https://resturent-management-system-server.vercel.app/users", { email: result?.user?.email })
                 Navigate("/");
             })
             .catch((error) => {

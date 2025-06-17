@@ -4,8 +4,9 @@ import toast from "react-hot-toast";
 import moment from "moment";
 
 const MyOrders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
+
 
     // Fetch orders for logged-in user
     // useEffect(() => {
@@ -24,17 +25,25 @@ const MyOrders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             if (!user?.email) return;
+            console.log("Fetching orders for:", user.email);
 
             try {
                 const token = await user.getIdToken(); // Get Firebase ID token
-                const res = await fetch(`https://resturent-management-system-server.vercel.app/orders?email=${user.email}`, {
+                console.log(token)
+                const res = await fetch(`https://resturent-management-system-server.vercel.app/orderedFoods?email=${user.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                console.log("Response status:", res);
 
                 if (!res.ok) {
                     throw new Error("Unauthorized or error fetching orders");
+                }
+
+
+                if (loading) {
+                    return <p className="text-center mt-20">Loading your orders...</p>;
                 }
 
                 const data = await res.json();
