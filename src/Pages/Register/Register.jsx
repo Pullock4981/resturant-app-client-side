@@ -1,12 +1,13 @@
 
 import React, { use } from 'react';
-import { Link, Navigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { addUser } from '../../service/addUser';
 // import { Link } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
     // user info
     const { createUser, googleSignIn } = use(AuthContext)
     const handleRegister = async (e) => {
@@ -16,6 +17,15 @@ const Register = () => {
         const { email, password, ...rest } = Object.fromEntries(formData.entries());
 
         // console.log('Register Info:', { name, photoURL, email, password });
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (!passwordRegex.test(password)) {
+            return Swal.fire(
+                "Invalid Password",
+                "Password must be at least 6 characters and include both uppercase and lowercase letters.",
+                "error"
+            );
+        }
 
         const userInfo = {
             email,
@@ -29,7 +39,7 @@ const Register = () => {
                 console.log(res.user)
                 Swal.fire("Success!", "Signed in!", "success");
                 addUser("https://resturent-management-system-server.vercel.app/users", { email })
-                Navigate("/");
+                navigate("/");
                 // ...
             })
             .catch((error) => {
@@ -47,7 +57,7 @@ const Register = () => {
                 console.log(result.user);
                 Swal.fire("Success!", "Signed in with Google!", "success");
                 addUser("https://resturent-management-system-server.vercel.app/users", { email: result?.user?.email })
-                Navigate("/");
+                navigate("/");
             })
             .catch((error) => {
                 console.error(error.message);
@@ -71,8 +81,20 @@ const Register = () => {
                             <label className="label mt-1">Email</label>
                             <input type="email" className="input w-full border border-[#8A4771]" name="email" placeholder="Email" required />
 
+                            {/* <label className="label mt-1">Password</label>
+                            <input type="password" className="input mb-2 w-full border-[#8A4771]" name="password" placeholder="Password" required /> */}
                             <label className="label mt-1">Password</label>
-                            <input type="password" className="input mb-2 w-full border-[#8A4771]" name="password" placeholder="Password" required />
+                            <input
+                                type="password"
+                                className="input mb-2 w-full border-[#8A4771]"
+                                name="password"
+                                placeholder="Password"
+                                required
+                                minLength={6}
+                            />
+                            <small className="text-gray-500 mt-1">
+                                Password must be at least 6 characters, include an uppercase and a lowercase letter.
+                            </small>
 
                             <button type="submit" className="btn btn-block border hover:border-0 border-[#8A4771] hover:bg-[#8A4771] hover:text-white font-bold mb-2">
                                 Register
