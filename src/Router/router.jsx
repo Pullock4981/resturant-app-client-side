@@ -16,11 +16,13 @@ import Gallery from "../Pages/Gallery/Gallery";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         Component: RootLayout,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 index: true,
