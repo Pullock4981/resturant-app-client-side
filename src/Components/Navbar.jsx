@@ -61,14 +61,14 @@ const NavBar = () => {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/allFoods">All Foods</NavLink></li>
             <li><NavLink to="/gallery">Gallery</NavLink></li>
-            {/* <li><NavLink to="/myFoods">My Foods</NavLink></li> */}
-            {/* <li><NavLink to="/addFoods">Add Food</NavLink></li> */}
-            {/* <li><NavLink to="/myOrders">My Orders</NavLink></li> */}
+            <li><NavLink to="/myFoods">My Foods</NavLink></li>
+            <li><NavLink to="/addFoods">Add Food</NavLink></li>
+            <li><NavLink to="/myOrders">My Orders</NavLink></li>
         </div>
     );
 
     return (
-        <div className="navbar bg-base-100 shadow-md text-base-content lg:px-28 px-4">
+        <div className="navbar bg-base-100 shadow-md text-base-content lg:px-28 px-4 sticky top-0 z-50">
             {/* Left (Brand & Mobile menu) */}
             <div className="navbar-start">
                 <div className="dropdown">
@@ -110,9 +110,9 @@ const NavBar = () => {
                         {isDropdownOpen && (
                             <div className="absolute right-20 top-14 bg-base-100 text-base-content shadow-lg rounded-md w-40 z-50">
                                 <ul className="flex flex-col text-sm font-medium">
-                                    <li><Link to="/myFoods" className="block px-4 py-2 hover:bg-base-200" onClick={() => setIsDropdownOpen(false)}>My Foods</Link></li>
+                                    {/* <li><Link to="/myFoods" className="block px-4 py-2 hover:bg-base-200" onClick={() => setIsDropdownOpen(false)}>My Foods</Link></li>
                                     <li><Link to="/addFoods" className="block px-4 py-2 hover:bg-base-200" onClick={() => setIsDropdownOpen(false)}>Add Food</Link></li>
-                                    <li><Link to="/myOrders" className="block px-4 py-2 hover:bg-base-200" onClick={() => setIsDropdownOpen(false)}>My Orders</Link></li>
+                                    <li><Link to="/myOrders" className="block px-4 py-2 hover:bg-base-200" onClick={() => setIsDropdownOpen(false)}>My Orders</Link></li> */}
                                 </ul>
                             </div>
                         )}
