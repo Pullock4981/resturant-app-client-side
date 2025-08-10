@@ -44,16 +44,20 @@ const NavBar = () => {
     const navLinks = (
         <>
             {/* Public routes */}
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/allFoods">All Foods</NavLink></li>
-            <li><NavLink to="/gallery">Gallery</NavLink></li>
+            <div className="md:flex gap-3">
+                <li><NavLink to="/">Home</NavLink></li>
+                <li><NavLink to="/allFoods">All Foods</NavLink></li>
+                <li><NavLink to="/gallery">Gallery</NavLink></li>
+            </div>
 
             {/* Private routes */}
             {user && (
                 <>
-                    <li><NavLink to="/myFoods">My Foods</NavLink></li>
-                    <li><NavLink to="/addFoods">Add Food</NavLink></li>
-                    <li><NavLink to="/myOrders">My Orders</NavLink></li>
+                    <div className="md:flex gap-3">
+                        <li><NavLink to="/myFoods">My Foods</NavLink></li>
+                        <li><NavLink to="/addFoods">Add Food</NavLink></li>
+                        <li><NavLink to="/myOrders">My Orders</NavLink></li>
+                    </div>
                 </>
             )}
         </>
