@@ -79,10 +79,12 @@ const NavBar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <div className="flex items-center gap-2">
-                    <img className="w-10 rounded-full" src={logo} alt="Logo" />
-                    <span className="font-bold text-xl hidden md:block">ForkFlow</span>
-                </div>
+                <Link to='/'>
+                    <div className="flex items-center gap-2">
+                        <img className="w-10 rounded-full" src={logo} alt="Logo" />
+                        <span className="font-bold text-xl hidden md:block">ForkFlow</span>
+                    </div>
+                </Link>
             </div>
 
             {/* Center - Main nav links */}
